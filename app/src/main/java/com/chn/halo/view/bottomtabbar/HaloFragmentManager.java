@@ -1,10 +1,5 @@
 package com.chn.halo.view.bottomtabbar;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +9,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -51,9 +51,9 @@ public class HaloFragmentManager {
 	@SuppressWarnings("deprecation")
 	@SuppressLint("UseSparseArrays")
 	private HaloFragmentManager() {
-		fragmetsMap = new HashMap<SelectableBottomTextView, Fragment>();
-		fragments = new ArrayList<Fragment>();
-		bTextViews = new ArrayList<SelectableBottomTextView>();
+		fragmetsMap = new HashMap<>();
+		fragments = new ArrayList<>();
+		bTextViews = new ArrayList<>();
 		viewPager.setSlipping(false);
 		viewPager.setOffscreenPageLimit(5);
 		haloPagerAdapter = new HaloPagerAdapter();
