@@ -14,6 +14,13 @@
     <color name="bottom_tab_selected">#73C4F7</color>
     <color name="bottom_bar_background">#212C3C</color>
 
+    <!-- progressbar -->
+    <color name="red">#990000</color>
+    <color name="green">#009900</color>
+    <color name="blue">#000099</color>
+    <color name="orange">#FF9900</color>
+    <color name="pink">#FFC0CB</color>
+
     <!-- 系统 -->
     <color name="Auction_orange">#fb6d21</color>
     <color name="Alevel_bg">#9ccd5a</color>
