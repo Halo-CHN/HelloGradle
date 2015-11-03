@@ -42,6 +42,9 @@ public abstract class BaseButterKnifeFragmentActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (null != customProgressDialog && customProgressDialog.isShowing()) {
+            customProgressDialog.dismiss("");
+        }
         ActivityController.remove(this);
     }
 
@@ -113,4 +116,6 @@ public abstract class BaseButterKnifeFragmentActivity extends FragmentActivity {
      * 可在此方法中进行变量初始化等行为
      */
     protected abstract void initializeAfterOnCreate();
+
+
 }
