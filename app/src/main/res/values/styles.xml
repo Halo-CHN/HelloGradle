@@ -27,6 +27,7 @@
         <item name="android:layout_weight">1</item>
         <item name="android:background">@drawable/selector_crop_button</item>
     </style>
+
     <style name="ProgressDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
@@ -35,5 +36,25 @@
         <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="head_default">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/height_100px</item>
+    </style>
+
+    <style name="message_divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.3dp</item>
+        <item name="android:background">#efddd7</item>
+    </style>
+
+    <style name="text_default">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:clickable">true</item>
+        <item name="android:onClick">tagClick</item>
+        <item name="android:padding">10dp</item>
     </style>
 </resources>
