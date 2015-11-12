@@ -32,7 +32,7 @@ public class ApplicationEx extends Application {
 
     private DisplayMetrics displayMetrics = null;
 
-    private ApplicationEx() {
+    public ApplicationEx() {
         instance = this;
     }
 
