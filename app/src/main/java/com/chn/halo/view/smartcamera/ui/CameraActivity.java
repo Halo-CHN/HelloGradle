@@ -1,7 +1,6 @@
 package com.chn.halo.view.smartcamera.ui;
 
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
@@ -30,8 +29,6 @@ import com.chn.halo.view.smartcamera.App;
 import com.chn.halo.view.smartcamera.base.CameraBaseActivity;
 import com.chn.halo.view.smartcamera.core.CameraConfig;
 import com.chn.halo.view.smartcamera.core.CameraHelper;
-import com.chn.halo.view.smartcamera.core.CameraManager;
-import com.chn.halo.view.smartcamera.model.PhotoItem;
 import com.chn.halo.view.smartcamera.util.FileUtils;
 import com.chn.halo.view.smartcamera.util.ImageUtils;
 
@@ -82,8 +79,6 @@ public class CameraActivity extends CameraBaseActivity {
     ImageView changeBtn;
     @Bind(R.id.back)
     ImageView backBtn;
-    @Bind(R.id.next)
-    ImageView galleryBtn;
     @Bind(R.id.focus_index)
     View focusIndex;
     @Bind(R.id.surfaceView)
@@ -139,8 +134,6 @@ public class CameraActivity extends CameraBaseActivity {
         } else {
             changeBtn.setOnClickListener(v -> switchCamera());
         }
-        //跳转相册
-        //galleryBtn.setOnClickListener(v -> startActivity(new Intent(CameraActivity.this, AlbumActivity.class)));
         //返回按钮
         backBtn.setOnClickListener(v -> finish());
         surfaceView.setOnTouchListener((v, event) -> {
@@ -203,20 +196,6 @@ public class CameraActivity extends CameraBaseActivity {
             //doNothing 防止聚焦框出现在拍照区域
         });
 
-    }
-
-    @Override
-    protected void onActivityResult(final int requestCode, final int resultCode, final Intent result) {
-        if (requestCode == CameraConfig.REQUEST_PICK && resultCode == RESULT_OK) {
-            CameraManager.getInst().showPhotoItem(
-                    CameraActivity.this,
-                    new PhotoItem(result.getData().getPath(), System
-                            .currentTimeMillis()));
-        } else if (requestCode == CameraConfig.REQUEST_CROP && resultCode == RESULT_OK) {
-            Intent newIntent = new Intent(this, PhotoProcessActivity.class);
-            newIntent.setData(result.getData());
-            startActivity(newIntent);
-        }
     }
 
     /**

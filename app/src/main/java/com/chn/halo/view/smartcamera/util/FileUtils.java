@@ -158,7 +158,7 @@ public class FileUtils {
     }
 
     public String getSystemPhotoPath() {
-        return Environment.getExternalStorageDirectory().getAbsolutePath() + "/DCIM/Camera";
+        return CameraConfig.APP_SYSTEMPHOTOPATH;
     }
 
 
@@ -166,13 +166,12 @@ public class FileUtils {
         String sdcardState = Environment.getExternalStorageState();
         //如果没SD卡则放缓存
         if (Environment.MEDIA_MOUNTED.equals(sdcardState)) {
-            BASE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath()
-                    + "/" + CameraConfig.APP_NAME + "/";
+            BASE_PATH = CameraConfig.APP_BASEPATH;
         } else {
             BASE_PATH = App.getApp().getCacheDirPath();
         }
 
-        STICKER_BASE_PATH = BASE_PATH + "/hellogradle/";
+        STICKER_BASE_PATH = BASE_PATH + CameraConfig.APP_FOLDER;
     }
 
     public boolean createFile(File file) {
@@ -338,6 +337,4 @@ public class FileUtils {
         Collections.sort(photos);
         return photos;
     }
-
-
 }
