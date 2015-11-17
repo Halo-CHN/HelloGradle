@@ -39,19 +39,14 @@ public class CameraManager {
         context.startActivity(intent);
     }
 
-    //判断图片是否需要裁剪
-    public void processPhotoItem(Activity activity, PhotoItem photo) {
+    //预览图片
+    public void showPhotoItem(Activity activity, PhotoItem photo) {
         Uri uri = photo.getImageUri().startsWith("file:") ? Uri.parse(photo
                 .getImageUri()) : Uri.parse("file://" + photo.getImageUri());
         if (ImageUtils.isSquare(photo.getImageUri())) {
             Intent newIntent = new Intent(activity, PhotoProcessActivity.class);
             newIntent.setData(uri);
             activity.startActivity(newIntent);
-        } else {
-//            Intent i = new Intent(activity, CropPhotoActivity.class);
-//            i.setData(uri);
-//            //TODO稍后添加
-//            activity.startActivityForResult(i, CameraConfig.REQUEST_CROP);
         }
     }
 

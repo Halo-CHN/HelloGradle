@@ -2,10 +2,8 @@ package com.chn.halo.view.smartcamera.ui;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.BitmapRegionDecoder;
-import android.graphics.Matrix;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.hardware.Camera;
@@ -35,12 +33,9 @@ import com.chn.halo.view.smartcamera.core.CameraHelper;
 import com.chn.halo.view.smartcamera.core.CameraManager;
 import com.chn.halo.view.smartcamera.model.PhotoItem;
 import com.chn.halo.view.smartcamera.util.FileUtils;
-import com.chn.halo.view.smartcamera.util.IOUtil;
 import com.chn.halo.view.smartcamera.util.ImageUtils;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -213,7 +208,7 @@ public class CameraActivity extends CameraBaseActivity {
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent result) {
         if (requestCode == CameraConfig.REQUEST_PICK && resultCode == RESULT_OK) {
-            CameraManager.getInst().processPhotoItem(
+            CameraManager.getInst().showPhotoItem(
                     CameraActivity.this,
                     new PhotoItem(result.getData().getPath(), System
                             .currentTimeMillis()));
@@ -336,6 +331,7 @@ public class CameraActivity extends CameraBaseActivity {
 
             if (StringUtils.isNotEmpty(result)) {
                 dismissProgressBar();
+                toast(result, Toast.LENGTH_SHORT);
 //                CameraManager.getInst().processPhotoItem(CameraActivity.this,
 //                        new PhotoItem(result, System.currentTimeMillis()));
             } else {
@@ -351,64 +347,27 @@ public class CameraActivity extends CameraBaseActivity {
      * @throws IOException
      */
     public String saveToSDCard(byte[] data) throws IOException {
-        Bitmap croppedImage;
-
-        //获得图片大小
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeByteArray(data, 0, data.length, options);
-
-        PHOTO_SIZE = options.outHeight > options.outWidth ? options.outWidth : options.outHeight;
-        int height = options.outHeight > options.outWidth ? options.outHeight : options.outWidth;
-        options.inJustDecodeBounds = false;
-        Rect r;
-        if (mCurrentCameraId == 1) {
-            r = new Rect(height - PHOTO_SIZE, 0, height, PHOTO_SIZE);
-        } else {
-            r = new Rect(0, 0, PHOTO_SIZE, PHOTO_SIZE);
-        }
-        try {
-            croppedImage = decodeRegionCrop(data, r);
-        } catch (Exception e) {
-            return null;
-        }
-        String imagePath = ImageUtils.saveToFile(FileUtils.getInst().getSystemPhotoPath(), true,
+        Bitmap croppedImage = ImageUtils.byteToBitmap(data);
+        String imagePath = ImageUtils.saveToFile(CameraConfig.APP_TEMP, true,
                 croppedImage);
         croppedImage.recycle();
+        String tempPath = imagePath;
+        if (null != imagePath && !imagePath.equals(""))
+            try {
+                Bitmap tempImage = ImageUtils.getSmallBitmap(imagePath);
+                imagePath = ImageUtils.saveToFile(CameraConfig.APP_IMAGE, true,
+                        tempImage);
+                FileUtils.getInst().deleteTempFile(tempPath);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         return imagePath;
     }
 
-    private Bitmap decodeRegionCrop(byte[] data, Rect rect) {
-
-        InputStream is = null;
-        System.gc();
-        Bitmap croppedImage = null;
-        try {
-            is = new ByteArrayInputStream(data);
-            BitmapRegionDecoder decoder = BitmapRegionDecoder.newInstance(is, false);
-
-            try {
-                croppedImage = decoder.decodeRegion(rect, new BitmapFactory.Options());
-            } catch (IllegalArgumentException e) {
-            }
-        } catch (Throwable e) {
-            e.printStackTrace();
-        } finally {
-            IOUtil.closeStream(is);
-        }
-        Matrix m = new Matrix();
-        m.setRotate(90, PHOTO_SIZE / 2, PHOTO_SIZE / 2);
-        if (mCurrentCameraId == 1) {
-            m.postScale(1, -1);
-        }
-        Bitmap rotatedImage = Bitmap.createBitmap(croppedImage, 0, 0, PHOTO_SIZE, PHOTO_SIZE, m, true);
-        if (rotatedImage != croppedImage)
-            croppedImage.recycle();
-        return rotatedImage;
-    }
 
     /**
      * show Toast
+     *
      * @param s
      * @param lengthLong
      */
@@ -675,9 +634,16 @@ public class CameraActivity extends CameraBaseActivity {
             int maybeFlippedHeight = isCandidatePortrait ? width : height;
             double aspectRatio = (double) maybeFlippedWidth / (double) maybeFlippedHeight;
             double distortion = Math.abs(aspectRatio - screenAspectRatio);
-            if (distortion > MAX_ASPECT_DISTORTION) {
-                it.remove();
-                continue;
+            if (isOrientationPortrait()) {
+                if (distortion > MAX_ASPECT_DISTORTION) {
+                    it.remove();
+                    continue;
+                }
+            } else if (isOrientationLandscape()) {
+                if (distortion < 1 - MAX_ASPECT_DISTORTION) {
+                    it.remove();
+                    continue;
+                }
             }
         }
 
@@ -693,11 +659,25 @@ public class CameraActivity extends CameraBaseActivity {
 
     //控制图像的正确显示方向
     private void setDispaly(Camera.Parameters parameters, Camera camera) {
-        if (Build.VERSION.SDK_INT >= 8) {
-            setDisplayOrientation(camera, 90);
-        } else {
-            parameters.setRotation(90);
+        int doInt = 0;
+        if (isOrientationLandscape()) {
+            doInt = 0;
+        } else if (isOrientationPortrait()) {
+            doInt = 90;
         }
+        if (Build.VERSION.SDK_INT >= 8) {
+            setDisplayOrientation(camera, doInt);
+        } else {
+            parameters.setRotation(doInt);
+        }
+    }
+
+    private boolean isOrientationLandscape() {
+        return this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    }
+
+    private boolean isOrientationPortrait() {
+        return this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
     }
 
     //实现的图像的正确显示

@@ -31,7 +31,7 @@ import java.util.Map;
 
 
 /**
- * Description:图片工具类
+ * Description:图片处理工具类
  * Version: 1.0
  * Author: Halo-CHN
  * Email: halo-chn@outlook.com
@@ -92,7 +92,6 @@ public class ImageUtils {
         IOUtil.closeStream(outputStream);
         return jpgFile.getPath();
     }
-
 
 
     //从文件中读取Bitmap
@@ -221,12 +220,12 @@ public class ImageUtils {
     public static Map<String, Album> findGalleries(Context mContext, List<String> paths, long babyId) {
         paths.clear();
         paths.add(FileUtils.getInst().getSystemPhotoPath());
-        String[] projection = { MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA,
-                MediaStore.Images.Media.DATE_ADDED };//FIXME 拍照时间为新增照片时间
+        String[] projection = {MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA,
+                MediaStore.Images.Media.DATE_ADDED};//FIXME 拍照时间为新增照片时间
         Cursor cursor = mContext.getContentResolver().query(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection,//指定所要查询的字段
                 MediaStore.Images.Media.SIZE + ">?",//查询条件
-                new String[] { "100000" }, //查询条件中问号对应的值
+                new String[]{"100000"}, //查询条件中问号对应的值
                 MediaStore.Images.Media.DATE_ADDED + " desc");
 
         cursor.moveToFirst();
@@ -262,7 +261,6 @@ public class ImageUtils {
     }
 
 
-
     //异步加载图片
     public static interface LoadImageCallback {
         public void callback(Bitmap result);
@@ -273,8 +271,8 @@ public class ImageUtils {
     }
 
     private static class LoadImageUriTask extends AsyncTask<Void, Void, Bitmap> {
-        private final Uri         imageUri;
-        private final Context     context;
+        private final Uri imageUri;
+        private final Context context;
         private LoadImageCallback callback;
 
         public LoadImageUriTask(Context context, Uri imageUri, LoadImageCallback callback) {
@@ -314,8 +312,8 @@ public class ImageUtils {
 
     private static class LoadSmallPicTask extends AsyncTask<Void, Void, Bitmap> {
 
-        private final Uri         imageUri;
-        private final Context     context;
+        private final Uri imageUri;
+        private final Context context;
         private LoadImageCallback callback;
 
         public LoadSmallPicTask(Context context, Uri imageUri, LoadImageCallback callback) {
@@ -359,6 +357,59 @@ public class ImageUtils {
             IOUtil.closeStream(inputStream);
         }
         return null;
+    }
+
+    /**
+     * 根据路径获得突破并压缩返回bitmap用于显示
+     *
+     * @param filePath
+     * @return
+     */
+    public static Bitmap getSmallBitmap(String filePath) {
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(filePath, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, 480, 800);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+
+        return BitmapFactory.decodeFile(filePath, options);
+    }
+
+    /**
+     * 计算图片的缩放值
+     *
+     * @param options
+     * @param reqWidth
+     * @param reqHeight
+     * @return
+     */
+    public static int calculateInSampleSize(BitmapFactory.Options options,
+                                            int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            // Calculate ratios of height and width to requested height and
+            // width
+            final int heightRatio = Math.round((float) height
+                    / (float) reqHeight);
+            final int widthRatio = Math.round((float) width / (float) reqWidth);
+
+            // Choose the smallest ratio as inSampleSize value, this will
+            // guarantee
+            // a final image with both dimensions larger than or equal to the
+            // requested height and width.
+            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+        }
+
+        return inSampleSize;
     }
 
 

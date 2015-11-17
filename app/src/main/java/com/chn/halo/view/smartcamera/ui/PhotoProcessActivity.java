@@ -10,4 +10,5 @@ import com.chn.halo.view.smartcamera.base.BaseActivity;
  * Date: 15/11/12
  */
 public class PhotoProcessActivity extends BaseActivity {
+
 }

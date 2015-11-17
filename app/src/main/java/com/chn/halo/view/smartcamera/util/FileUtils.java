@@ -6,6 +6,7 @@ import android.os.Environment;
 
 import com.chn.halo.util.StringUtils;
 import com.chn.halo.view.smartcamera.App;
+import com.chn.halo.view.smartcamera.core.CameraConfig;
 import com.chn.halo.view.smartcamera.model.PhotoItem;
 
 import java.io.BufferedReader;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Description:
+ * Description:文件处理工具类
  * Version: 1.0
  * Author: Halo-CHN
  * Email: halo-chn@outlook.com
@@ -29,8 +30,8 @@ import java.util.Collections;
  */
 public class FileUtils {
 
-    private static String    BASE_PATH;
-    private static String    STICKER_BASE_PATH;
+    private static String BASE_PATH;
+    private static String STICKER_BASE_PATH;
 
     private static FileUtils mInstance;
 
@@ -51,6 +52,7 @@ public class FileUtils {
 
     /**
      * 获取文件夹大小
+     *
      * @param file File实例
      * @return long 单位为K
      * @throws Exception
@@ -86,6 +88,7 @@ public class FileUtils {
         String md5Str = MD5Util.getMD5(imageUrl).replace("-", "mm");
         return getBasePath(packageId) + md5Str;
     }
+
     //读取assets文件
     public String readFromAsset(String fileName) {
         InputStream is = null;
@@ -116,6 +119,16 @@ public class FileUtils {
         }
     }
 
+    /**
+     * 根据路径删除图片
+     *
+     * @param path
+     */
+    public void deleteTempFile(String path) {
+        File file = new File(path);
+        delete(file);
+    }
+
     public void delete(File file) {
         if (file.isFile()) {
             file.delete();
@@ -137,11 +150,11 @@ public class FileUtils {
     }
 
     public String getPhotoSavedPath() {
-        return BASE_PATH + "stickercamera";
+        return BASE_PATH + CameraConfig.APP_NAME;
     }
 
     public String getPhotoTempPath() {
-        return BASE_PATH + "stickercamera";
+        return BASE_PATH + CameraConfig.APP_NAME;
     }
 
     public String getSystemPhotoPath() {
@@ -154,12 +167,12 @@ public class FileUtils {
         //如果没SD卡则放缓存
         if (Environment.MEDIA_MOUNTED.equals(sdcardState)) {
             BASE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath()
-                        + "/stickercamera/";
+                    + "/" + CameraConfig.APP_NAME + "/";
         } else {
             BASE_PATH = App.getApp().getCacheDirPath();
         }
 
-        STICKER_BASE_PATH = BASE_PATH + "/stickers/";
+        STICKER_BASE_PATH = BASE_PATH + "/hellogradle/";
     }
 
     public boolean createFile(File file) {
@@ -270,8 +283,8 @@ public class FileUtils {
         return of.exists() && !nf.exists() && of.renameTo(nf);
     }
 
-    /**  
-     * 复制单个文件  
+    /**
+     * 复制单个文件
      */
     public void copyFile(String oldPath, String newPath) {
         InputStream inStream = null;
