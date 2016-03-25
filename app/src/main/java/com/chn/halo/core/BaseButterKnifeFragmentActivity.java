@@ -1,13 +1,13 @@
 package com.chn.halo.core;
 
-import butterknife.ButterKnife;
-
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.Window;
 
 import com.chn.halo.view.progressbar.CustomProgressDialog;
+
+import butterknife.ButterKnife;
 
 /**
  * @author Halo-CHN
@@ -115,7 +115,5 @@ public abstract class BaseButterKnifeFragmentActivity extends FragmentActivity {
      * <p/>
      * 可在此方法中进行变量初始化等行为
      */
-    protected abstract void initializeAfterOnCreate();
-
-
+    protected void initializeAfterOnCreate(){}
 }

@@ -1,9 +1,12 @@
-package com.chn.halo.ui;
+package com.chn.halo.ui.activity;
 
 import android.view.View;
 
 import com.chn.halo.R;
 import com.chn.halo.core.BaseButterKnifeFragmentActivity;
+import com.chn.halo.ui.fragment.MoreFragment;
+import com.chn.halo.ui.fragment.AccountFragment;
+import com.chn.halo.ui.fragment.HomeFragment;
 import com.chn.halo.util.ToastUtils;
 import com.chn.halo.view.bottomtabbar.HaloFragmentManager;
 import com.chn.halo.view.bottomtabbar.HaloViewPager;

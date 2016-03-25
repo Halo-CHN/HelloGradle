@@ -1,7 +1,5 @@
 package com.chn.halo.core;
 
-import butterknife.ButterKnife;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chn.halo.view.progressbar.CustomProgressDialog;
+
+import butterknife.ButterKnife;
 
 /**
  * @author Halo-CHN
@@ -98,5 +98,5 @@ public abstract class BaseButterKnifeFragment extends Fragment {
      * <p/>
      * 可在此方法中进行变量等的初始化
      */
-    protected abstract void initializeAfterOnCreate();
+    protected void initializeAfterOnCreate(){}
 }

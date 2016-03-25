@@ -92,5 +92,5 @@ public abstract class BaseButterKnifeActivity extends Activity{
 	 * 
 	 * 可在此方法中进行变量等的初始化
 	 */
-	protected abstract void initializeAfterOnCreate();
+	protected void initializeAfterOnCreate(){}
 }
