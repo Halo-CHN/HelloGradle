@@ -1,15 +1,16 @@
 package com.chn.halo.ui.activity;
 
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.chn.halo.R;
 import com.chn.halo.core.BaseButterKnifeActivity;
 import com.chn.halo.custom.DividerGridItemDecoration;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,7 @@ public class RecyclerActivity extends BaseButterKnifeActivity {
     private List<String> mDatas;
     private HomeAdapter mAdapter;
 
+
     @Override
     protected void initializeAfterOnCreate() {
         super.initializeAfterOnCreate();
@@ -37,8 +39,8 @@ public class RecyclerActivity extends BaseButterKnifeActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
 //        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
-//        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL));
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
+//        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL));
 //        mRecyclerView.addItemDecoration(new DividerItemDecoration(this,
 //                DividerItemDecoration.VERTICAL_LIST));
         mRecyclerView.addItemDecoration(new DividerGridItemDecoration(this));
@@ -57,14 +59,13 @@ public class RecyclerActivity extends BaseButterKnifeActivity {
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             MyViewHolder holder = new MyViewHolder(LayoutInflater.from(
-                    getThis()).inflate(R.layout.item_recycler, parent,
-                    false));
+                    getThis()).inflate(R.layout.item_recycler, parent, false));
             return holder;
         }
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-            holder.tv.setText(mDatas.get(position));
+            holder.tv.setImageURI(Uri.parse("https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg"));
         }
 
         @Override
@@ -74,11 +75,11 @@ public class RecyclerActivity extends BaseButterKnifeActivity {
 
         class MyViewHolder extends RecyclerView.ViewHolder {
 
-            TextView tv;
+            SimpleDraweeView tv;
 
             public MyViewHolder(View view) {
                 super(view);
-                tv = (TextView) view.findViewById(R.id.id_num);
+                tv = (SimpleDraweeView) view.findViewById(R.id.id_num);
             }
         }
     }

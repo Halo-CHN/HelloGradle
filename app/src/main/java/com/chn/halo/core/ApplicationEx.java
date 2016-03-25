@@ -6,6 +6,7 @@ import android.app.Application;
 import android.content.Context;
 import android.util.DisplayMetrics;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
@@ -38,17 +39,19 @@ public class ApplicationEx extends Application {
 
     public static ApplicationEx getInstance() {
         if (instance != null && instance instanceof ApplicationEx) {
-            return (ApplicationEx) instance;
+            return instance;
         } else {
             instance = new ApplicationEx();
             instance.onCreate();
-            return (ApplicationEx) instance;
+            return instance;
         }
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        /*初始化Fresco*/
+        Fresco.initialize(this);
         initImageLoader();
         instance = this;
     }

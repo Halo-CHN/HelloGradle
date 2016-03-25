@@ -63,7 +63,7 @@ public abstract class BaseButterKnifeActivity extends Activity{
 	}
 
 	/**
-	 * 
+	 *
 	 * @return 得到当前类
 	 */
 	protected BaseButterKnifeActivity getThis() {
@@ -71,9 +71,9 @@ public abstract class BaseButterKnifeActivity extends Activity{
 	}
 
 	/**
-	 * 
+	 *
 	 * @return 是否支持后退键 true-可后退 false-双次退出程序;默认为true，可在子类中重载此方法修改返回结果
-	 * 
+	 *
 	 */
 	protected boolean supportBackKey()
 	{
@@ -82,14 +82,14 @@ public abstract class BaseButterKnifeActivity extends Activity{
 
 	/**
 	 * 得到初始化Fragment的View所加载的Layout资源
-	 * 
+	 *
 	 * @return 资源 layoutId
 	 */
 	protected abstract int getLayoutResId();
 
 	/**
 	 * OnCreate处理完毕后,立即执行此方法
-	 * 
+	 *
 	 * 可在此方法中进行变量等的初始化
 	 */
 	protected void initializeAfterOnCreate(){}
