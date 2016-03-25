@@ -1,7 +1,7 @@
 package com.chn.halo.ui.activity;
 
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.chn.halo.R;
 import com.chn.halo.core.BaseButterKnifeActivity;
-import com.chn.halo.custom.DividerItemDecoration;
+import com.chn.halo.custom.DividerGridItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +35,13 @@ public class RecyclerActivity extends BaseButterKnifeActivity {
         super.initializeAfterOnCreate();
         initData();
         mRecyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(this,
-                DividerItemDecoration.VERTICAL_LIST));
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+//        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL));
+//        mRecyclerView.addItemDecoration(new DividerItemDecoration(this,
+//                DividerItemDecoration.VERTICAL_LIST));
+        mRecyclerView.addItemDecoration(new DividerGridItemDecoration(this));
         mRecyclerView.setAdapter(mAdapter = new HomeAdapter());
     }
 
