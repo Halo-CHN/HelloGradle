@@ -1,4 +1,4 @@
-package com.chn.halo.ui;
+package com.chn.halo.ui.fragment;
 
 import com.chn.halo.R;
 import com.chn.halo.core.BaseButterKnifeFragment;
