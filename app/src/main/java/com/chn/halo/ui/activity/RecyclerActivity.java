@@ -10,7 +10,11 @@ import android.view.ViewGroup;
 import com.chn.halo.R;
 import com.chn.halo.core.BaseButterKnifeActivity;
 import com.chn.halo.custom.DividerGridItemDecoration;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +69,18 @@ public class RecyclerActivity extends BaseButterKnifeActivity {
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-            holder.tv.setImageURI(Uri.parse("https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg"));
+            //渐进式加载
+            ImageRequest request = ImageRequestBuilder
+                    .newBuilderWithSource(Uri.parse("https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg"))
+                    .setProgressiveRenderingEnabled(true)
+                    .build();
+            DraweeController controller = Fresco.newDraweeControllerBuilder()
+                    .setImageRequest(request)
+                    .setOldController(holder.tv.getController())
+                    .build();
+
+            holder.tv.setController(controller);
+            //holder.tv.setImageURI(Uri.parse("https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg"));
         }
 
         @Override
