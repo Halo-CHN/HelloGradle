@@ -6,7 +6,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import org.apache.http.Header;
+import org.apache.http.*;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -95,7 +95,7 @@ public class AndroidAsyncHttpHelper {
 	 * 
 	 * @param context
 	 *            调用的页面
-	 * @param uri
+	 * @param url
 	 *            请求的URL
 	 * @param callback
 	 *            请求完成后回调的方法
@@ -125,7 +125,7 @@ public class AndroidAsyncHttpHelper {
 	 ** 
 	 * @param context
 	 *            调用的页面
-	 * @param uri
+	 * @param url
 	 *            请求的URL
 	 * @param callback
 	 *            请求完成后回调的方法
@@ -169,7 +169,7 @@ public class AndroidAsyncHttpHelper {
 		AsyncHttpResponseHandler asyncHttpResponseHandler = new AsyncHttpResponseHandler() {
 
 			@Override
-			public void onSuccess(int code, Header[] headers, byte[] arg2) {
+			public void onSuccess(int code, org.apache.http.Header[] headers, byte[] arg2) {
 				String res = "";
 				try {
 					res = new String(arg2, "UTF-8");
@@ -182,7 +182,7 @@ public class AndroidAsyncHttpHelper {
 			}
 
 			@Override
-			public void onFailure(int code, Header[] headers, byte[] arg2, Throwable arg3) {
+			public void onFailure(int code, org.apache.http.Header[] headers, byte[] arg2, Throwable arg3) {
 				if (code == 404) {
 				} else {
 					callback.callback("");
@@ -234,29 +234,17 @@ public class AndroidAsyncHttpHelper {
 			params.put("uploadfile", file);
 			/* 上传文件 */
 			client.post(url, params, new AsyncHttpResponseHandler() {
+
+
 				@Override
-				public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-					/* 上传成功后要做的工作 */
+				public void onSuccess(int statusCode, org.apache.http.Header[] headers, byte[] responseBody) {
+
 				}
 
 				@Override
-				public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-				}
+				public void onFailure(int statusCode, org.apache.http.Header[] headers, byte[] responseBody, Throwable error) {
 
-				@Override
-				public void onProgress(long bytesWritten, long totalSize) {
-					super.onProgress(bytesWritten, totalSize);
-					/* 上传进度显示 */
-					// int count = (int) ((bytesWritten * 1.0 / totalSize) *
-					// 100);
 				}
-
-				@Override
-				public void onRetry(int retryNo) {
-					super.onRetry(retryNo);
-					/* 返回重试次数 */
-				}
-
 			});
 		} else {
 			/* 文件不存在 */
