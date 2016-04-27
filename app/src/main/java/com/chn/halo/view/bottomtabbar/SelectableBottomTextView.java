@@ -1,6 +1,5 @@
 package com.chn.halo.view.bottomtabbar;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
@@ -33,7 +32,6 @@ public class SelectableBottomTextView extends TextView implements View.OnClickLi
         super(context);
     }
 
-    @SuppressLint("InlinedApi")
     public SelectableBottomTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
