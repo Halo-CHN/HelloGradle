@@ -9,5 +9,6 @@
         android:id="@+id/id_num"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        fresco:roundedCornerRadius="5dp"
         fresco:viewAspectRatio="1.33" />
 </FrameLayout>
