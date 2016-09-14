@@ -76,14 +76,16 @@ public class SelectableBottomTextView extends TextView implements View.OnClickLi
     private void setTextViewSelected() {
         if (selectedDefault) {
             setTextColor(selectedColor);
-            selectedIcon.setColorFilter(iconSelectedColorFilter, PorterDuff.Mode.SRC_ATOP);
-            setCompoundDrawablesWithIntrinsicBounds(null, selectedIcon, null, null);
-
+            if (null != selectedIcon) {
+                selectedIcon.setColorFilter(iconSelectedColorFilter, PorterDuff.Mode.SRC_ATOP);
+                setCompoundDrawablesWithIntrinsicBounds(null, selectedIcon, null, null);
+            }
         } else {
             setTextColor(unselectedColor);
-            unselectedIcon.setColorFilter(iconUnSelectedColorFilter, PorterDuff.Mode.SRC_ATOP);
-            setCompoundDrawablesWithIntrinsicBounds(null, unselectedIcon, null, null);
+            if (null != unselectedIcon) {
+                unselectedIcon.setColorFilter(iconUnSelectedColorFilter, PorterDuff.Mode.SRC_ATOP);
+                setCompoundDrawablesWithIntrinsicBounds(null, unselectedIcon, null, null);
+            }
         }
     }
-
 }
