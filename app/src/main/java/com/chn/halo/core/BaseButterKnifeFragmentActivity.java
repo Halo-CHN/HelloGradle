@@ -1,7 +1,7 @@
 package com.chn.halo.core;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.Window;
 
@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
  * @mail halo-chn@outlook.com
  * @date 2014年12月11日
  */
-public abstract class BaseButterKnifeFragmentActivity extends FragmentActivity {
+public abstract class BaseButterKnifeFragmentActivity extends Activity {
 
     private CustomProgressDialog customProgressDialog;
 

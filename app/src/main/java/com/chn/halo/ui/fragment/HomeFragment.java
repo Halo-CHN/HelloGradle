@@ -2,7 +2,6 @@ package com.chn.halo.ui.fragment;
 
 import com.chn.halo.R;
 import com.chn.halo.core.BaseButterKnifeFragment;
-import com.chn.halo.net.HaloAsyncHttpResponseHandler;
 import com.chn.halo.net.facade.NetFacade;
 import com.chn.halo.util.ToastUtils;
 
@@ -35,13 +34,9 @@ public class HomeFragment extends BaseButterKnifeFragment {
 
     private void getBeijing() {
         showProgressBar("");
-        NetFacade.getBaiduHttp().getTrafficEvent(getThis(), "北京", new HaloAsyncHttpResponseHandler() {
-
-            @Override
-            public void callback(String response) {
-                ToastUtils.show(getThis(), response);
-                dismissProgressBar();
-            }
+        NetFacade.getBaiduHttp().getTrafficEvent(getThis(), "北京", response -> {
+            ToastUtils.show(getThis(), response);
+            dismissProgressBar();
         });
     }
 }
