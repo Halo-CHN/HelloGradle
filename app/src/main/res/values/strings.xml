@@ -21,6 +21,7 @@
     <!-- bottom -->
     <string name="bottom_home">首页</string>
     <string name="bottom_account">我的</string>
+    <string name="bottom_search">搜索</string>
     <string name="bottom_more">更多</string>
 
 </resources>
