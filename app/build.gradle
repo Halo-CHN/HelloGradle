@@ -1,8 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'com.github.dcendents.android-maven'
-
-group='com.github.Halo-CHN'
 
 
 android {
