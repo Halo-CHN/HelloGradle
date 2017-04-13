@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="SelectableView" >
+    <declare-styleable name="SelectableView">
         <attr name="selected_icon" format="reference" />
         <attr name="unselected_icon" format="reference" />
         <attr name="text_unselected_color" format="color" />
@@ -11,27 +11,27 @@
     </declare-styleable>
     <declare-styleable name="selected_color"></declare-styleable>
     <declare-styleable name="MaterialProgressBar">
-        <attr name="inner_radius" format="dimension"/>
-        <attr name="background_color" format="color"/>
-        <attr name="progress_color" format="color"/>
-        <attr name="progress_stoke_width" format="dimension"/>
-        <attr name="show_arrow" format="boolean"/>
-        <attr name="enable_circle_background" format="boolean"/>
-        <attr name="arrow_width" format="dimension"/>
-        <attr name="arrow_height" format="dimension"/>
+        <attr name="inner_radius" format="dimension" />
+        <attr name="background_color" format="color" />
+        <attr name="progress_color" format="color" />
+        <attr name="progress_stoke_width" format="dimension" />
+        <attr name="show_arrow" format="boolean" />
+        <attr name="enable_circle_background" format="boolean" />
+        <attr name="arrow_width" format="dimension" />
+        <attr name="arrow_height" format="dimension" />
 
-        <attr name="progress" format="integer"/>
-        <attr name="max" format="integer"/>
+        <attr name="progress" format="integer" />
+        <attr name="max" format="integer" />
 
 
-        <attr name="progress_text_size" format="dimension"/>
-        <attr name="progress_text_color" format="color"/>
+        <attr name="progress_text_size" format="dimension" />
+        <attr name="progress_text_color" format="color" />
 
         <!--<attr name="mlpb_progress_text_offset" format="dimension"/>-->
 
         <attr name="progress_text_visibility" format="enum">
-            <enum name="visible" value="0"/>
-            <enum name="invisible" value="1"/>
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
         </attr>
     </declare-styleable>
     <declare-styleable name="CommonTitleBar">
@@ -67,5 +67,15 @@
     </declare-styleable>
     <declare-styleable name="FlowLayout_Layout">
         <attr name="android:layout_gravity" />
+    </declare-styleable>
+    <declare-styleable name="ZoomAnimationRelativeLayout">
+        <attr name="scale_size" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleProgressButton">
+        <attr name="center_text" format="string|reference" />
+        <attr name="center_text_size" format="dimension" />
+        <attr name="progress_during_time" format="integer" />
+        <attr name="scale_during_time" format="integer" />
     </declare-styleable>
 </resources>

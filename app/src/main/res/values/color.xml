@@ -232,5 +232,7 @@
     <color name="postscript_background">#f3b554</color>
     <color name="postscript_background1">#83ca6d </color>
     <color name="postscript_background2">#ff9555</color>
-
+    <color name="filter_red">#F4444A</color>//路宝红
+    <color name="filter_green">#7ED321</color>//路宝红
+    <color name="white">#FFFFFF</color>
 </resources>

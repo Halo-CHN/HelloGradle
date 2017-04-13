@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:scale="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.github.lzyzsd.circleprogress.DonutProgress
+        android:id="@+id/donut_progress"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        custom:donut_circle_starting_degree="270"
+        custom:donut_finished_color="@color/filter_red"
+        custom:donut_finished_stroke_width="2dp"
+        custom:donut_text=""
+        custom:donut_unfinished_stroke_width="2dp" />
+
+    <com.chn.halo.custom.CircleProgressButton.ZoomAnimationRelativeLayout
+        android:id="@+id/mZoomAnimationRelativeLayout"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center"
+        android:background="@drawable/auction_details_add_one"
+        scale:scale_size="0.85">
+
+        <TextView
+            android:id="@+id/donut_progress_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/white" />
+    </com.chn.halo.custom.CircleProgressButton.ZoomAnimationRelativeLayout>
+</FrameLayout>
