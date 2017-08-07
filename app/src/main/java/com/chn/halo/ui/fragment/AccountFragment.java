@@ -22,7 +22,5 @@ public class AccountFragment extends BaseButterKnifeFragment {
     @OnClick(R.id.main_btn_test)
     void Test() {
         ToastUtils.show(getThis(), JniUtils.getKey());
-//        Intent intent = new Intent(getThis(), RecyclerActivity.class);
-//        startActivity(intent);
     }
 }
